@@ -11,8 +11,9 @@ import com.xiangqin.action.base.BaseController;
 @Controller
 public class HomeController extends BaseController {
 
+	
 	@RequestMapping(value = "/index.html", method = RequestMethod.GET)
-	public String welcome(HttpServletRequest request) {
+	public String index(HttpServletRequest request) {
 		return "/app/index";
 	}
 }

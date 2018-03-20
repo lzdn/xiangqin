@@ -18,8 +18,8 @@ import com.alibaba.druid.support.http.WebStatFilter;
 public class DruidConfiguration {
 
 	@Bean
-	public ServletRegistrationBean<StatViewServlet> druidServlet() {
-		ServletRegistrationBean<StatViewServlet> reg = new ServletRegistrationBean<StatViewServlet>();
+	public ServletRegistrationBean druidServlet() {
+		ServletRegistrationBean reg = new ServletRegistrationBean();
 		reg.setServlet(new StatViewServlet());
 		reg.addUrlMappings("/druid/*");
 	 
@@ -29,8 +29,8 @@ public class DruidConfiguration {
 	}
 
 	@Bean
-	public FilterRegistrationBean<WebStatFilter> filterRegistrationBean() {
-		FilterRegistrationBean<WebStatFilter> filterRegistrationBean = new FilterRegistrationBean<WebStatFilter>();
+	public FilterRegistrationBean filterRegistrationBean() {
+		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
 		filterRegistrationBean.setFilter(new WebStatFilter());
 		filterRegistrationBean.addUrlPatterns("/*");
 		filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
