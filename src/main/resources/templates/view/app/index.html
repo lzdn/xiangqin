@@ -1,47 +1,10 @@
 <#import "/app/frame.html" as frame />
 <@frame.frame csss=["iconfont.css","mui.picker.min.css","mui.poppicker.css","index.css"] scripts=[]> 
 <div class="mui-content">
-	<div id="love" class="mui-control-content  mui-active">
-		<header class="mui-bar mui-bar-nav">
-			<h1 id="title" class="mui-title">一见钟情</h1>
-		</header>
-		<div class="mui-content">
-			<div class="mui-card">
-				<div class="mui-card-header mui-card-media" style="height:80vw;background-image:url(${basePath}/static/images/1.jpg)"></div>
-				<div class="mui-card-content">
-					<div class="mui-card-content-inner">
-						<p>姓名：晓霞&nbsp;&nbsp;年龄：18岁</p>
-						<p style="color: #333;">签名：爱一个人好难...</p>
-					</div>
-				</div>
-				<div class="mui-card-footer">
-					<a class="mui-card-link">
-						<!--<i class="mui-icon mui-icon-eye"></i>-->关注(12)</a>
-					<a class="mui-card-link" href="person.html">查看</a>
-				</div>
-			</div>
-			<div class="mui-card">
-				<div class="mui-card-header mui-card-media" style="height:80vw;background-image:url(${basePath}/static/images/2.jpg)"></div>
-				<div class="mui-card-content">
-					<div class="mui-card-content-inner">
-						<p>姓名：晓霞&nbsp;&nbsp;年龄：保密</p>
-						<p style="color: #333;">签名：爱一个人好难...</p>
-					</div>
-				</div>
-				<div class="mui-card-footer">
-					<a class="mui-card-link">
-						<!--<i class="mui-icon mui-icon-eye"></i>-->关注(5)</a>
-					<a class="mui-card-link" href="person.html">查看</a>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div id="love" class="mui-control-content  mui-active"></div>
 	<div id="fabu" class="mui-control-content">
-		<header class="mui-bar mui-bar-nav">
-			<h1 id="title" class="mui-title">我要征婚</h1>
-			<a href="#" class="mui-icon mui-icon-navigate mui-pull-right" style="color:#f7e9e9;"></a>
-		</header>
-		<div class="mui-content">
+	<header class="mui-bar mui-bar-nav"><h1 id="title" class="mui-title">我要征婚</h1><a href="#" class="mui-icon mui-icon-navigate mui-pull-right" style="color:#f7e9e9;"></a></header>
+	<div class="mui-content">
 			<h5>请填写您的个人信息，点击右上角保存：</h5>
 			<form class="mui-input-group">
 				<div class="mui-input-row">
@@ -50,7 +13,7 @@
 				</div>
 				<div class="mui-input-row">
 					<label>生日</label>
-					<input type="text" id="shengri" class="mui-input-clear" placeholder="请输入生日" data-options='{"type":"date"}' readonly="readonly">
+					<input type="text" id="shengri" class="mui-input-clear" placeholder="请输入生日" readonly="readonly" data-options='{"type":"date"}' unselectable="on" onfocus="this.blur();">
 				</div>
 				<div class="mui-input-row mui-radio ">
 					<label>男</label>
@@ -62,7 +25,7 @@
 				</div>
 				<div class="mui-input-row">
 					<label>住址</label>
-					<input type="text" id="address" class="mui-input-clear" placeholder="请输入住址" data-options='{"type":"date"}' readonly="readonly">
+					<input type="text" id="address" class="mui-input-clear" placeholder="请输入住址" readonly="readonly"  unselectable="on" onfocus="this.blur();">
 				</div>
 				<div class="mui-input-row">
 					<label>手机</label>
@@ -104,11 +67,11 @@
 
 					<div style="height: auto;width: 100%;padding: 2px 15px;">
 						<div style="height:auto;width: 100%;">
-							<img src="${basePath}/static/images/2.jpg" style="height:auto;width: 100%;" />
+							<img src="${basePath}/static/images/a2.jpg" style="height:auto;width: 100%;" />
 							<a href="#" class="mui-icon mui-icon-trash"></a>
 						</div>
 						<div style="height:auto;width: 100%;">
-							<img src="${basePath}/static/images/1.jpg" style="height:auto;width: 100%;" />
+							<img src="${basePath}/static/images/a1.jpg" style="height:auto;width: 100%;" />
 							<a href="#" class="mui-icon mui-icon-trash"></a>
 						</div>
 					</div>
@@ -117,10 +80,35 @@
 			</form>
 		</div>
 	</div>
-	<div id="mine" class="mui-control-content">
-		<header class="mui-bar mui-bar-nav">
-			<h1 id="title" class="mui-title">个人中心</h1>
-		</header>
+	<div id="mine" class="mui-control-content"> </div>
+</div>
+</@frame.frame>
+<@frame.script>
+	<script type="text/javascript" src="${basePath}/static/js/mui.picker.min.js"></script>
+	<script src="${basePath}/static/js/mui.poppicker.js"></script>
+	<script src="${basePath}/static/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${basePath}/static/js/app.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="template" id="fabuTemplate"> </script>
+	<script type="template" id="loveTemplate">
+	<div class="mui-content">
+		<div class="mui-card">
+			<div class="mui-card-header mui-card-media" style="height:80vw;background-image:url(${basePath}/static/images/a1.jpg)"></div>
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner">
+					<p>姓名：晓霞&nbsp;&nbsp;年龄：18岁</p>
+					<p style="color: #333;">签名：爱一个人好难...</p>
+				</div>
+			</div>
+			<div class="mui-card-footer">
+				<a class="mui-card-link">
+					<!--<i class="mui-icon mui-icon-eye"></i>-->关注(12)</a>
+				<a class="mui-card-link" href="person.html">查看</a>
+			</div>
+		</div>
+	</div>
+	</script>
+	<script type="template" id="mineTemplate">
 		<div class="mui-content">
 			<div class="site-wd-title">
 				<div class="site-wd-cell mui-media">
@@ -173,19 +161,56 @@
 				</ul>
 			</div>
 		</div>
-	</div>
-</div>
-</@frame.frame>
-<@frame.script>
-	<script type="text/javascript" src="${basePath}/static/js/mui.picker.min.js"></script>
-	<script src="${basePath}/static/js/mui.poppicker.js"></script>
-	<script src="${basePath}/static/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
-	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	</script>
+	<script type="template" id="finishTemplate">
+		<div class="mui-content">
+			<div class="mui-card">
+			<div class="mui-card-header mui-card-media" style="height:80vw;background-image:url(${basePath}/static/images/a1.jpg)"></div>
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner">
+					<p style="color: #333;">提示：填写真实详细的个人信息，能帮助你征婚。</p>
+				</div>
+			</div>
+			<div class="mui-card-footer">
+				<a class="mui-card-link" href="##"><i class="mui-icon mui-icon-compose"></i>我要修改</a>
+			</div>
+			</div>
+		</div>
+	</script>
 	<script type="text/javascript" charset="utf-8">
 		//http://www.jb51.net/article/99479.htm http://blog.csdn.net/sun2015_07_24/article/details/51445844
 		//mui初始化
-		//mui.init();
-		(function($, doc) {
+		function loadlove(){
+			var htmlTem = tmpl("loveTemplate","");
+			var header ='<header class="mui-bar mui-bar-nav"> <h1 id="title" class="mui-title">一见钟情</h1></header>';
+			$("#love").html(header);
+			$("#love").append(htmlTem);
+		}
+ 		function loadmine(){
+ 			var htmlTem = tmpl("mineTemplate","");
+			var header ='<header class="mui-bar mui-bar-nav"> <h1 id="title" class="mui-title">个人中心</h1> </header>';
+			$("#mine").html(header);
+			$("#mine").append(htmlTem);
+ 		}
+ 	/* 	function loadfabu(){
+ 			var htmlTem = tmpl("fabuTemplate","");
+			var header ='<header class="mui-bar mui-bar-nav"><h1 id="title" class="mui-title">我要征婚</h1><a href="#" class="mui-icon mui-icon-navigate mui-pull-right" style="color:#f7e9e9;"></a></header>';
+			$("#fabu").html(header);
+			$("#fabu").append(htmlTem);
+			initfabu(mui,document);
+ 		} */
+ 		function loadfinish(){
+ 			var htmlTem = tmpl("finishTemplate","");
+			var header ='<header class="mui-bar mui-bar-nav"><h1 id="title" class="mui-title">我要征婚</h1></header>';
+			$("#fabu").html(header);
+			$("#fabu").append(htmlTem);
+ 		}
+ 		$(function(){
+ 			mui.init();
+ 			loadlove();
+ 		});
+ 	 
+ 		(function($, doc) {
 			$.init();
 			var result = $('#shengri')[0];
 			var btns = $('#shengri');
@@ -261,7 +286,14 @@
 		})(mui, document);
 		mui('.mui-bar-tab').on('tap', 'a', function(e) {
 			var targetTab = this.getAttribute('href');
-			//alert(targetTab)
+			if("#love"==targetTab){
+				loadlove();
+			}else if("#mine"==targetTab){
+				loadmine();
+			}else if("#fabu"==targetTab){
+			//	loadfabu();
+				//loadfinish();
+			} 
 		});
 	</script>
 </@frame.script>
