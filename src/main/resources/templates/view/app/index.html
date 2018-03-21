@@ -3,17 +3,17 @@
 <div class="mui-content">
 	<div id="love" class="mui-control-content  mui-active"></div>
 	<div id="fabu" class="mui-control-content">
-	<header class="mui-bar mui-bar-nav"><h1 id="title" class="mui-title">我要征婚</h1><a href="#" class="mui-icon mui-icon-navigate mui-pull-right" style="color:#f7e9e9;"></a></header>
+	<header class="mui-bar mui-bar-nav"><h1 id="title" class="mui-title">我要征婚</h1><a href="javascript:void(0);" class="mui-icon mui-icon-navigate mui-pull-right" style="color:#f7e9e9;" id="save"></a></header>
 	<div class="mui-content">
 			<h5>请填写您的个人信息，点击右上角保存：</h5>
-			<form class="mui-input-group">
+			<form class="mui-input-group" id="fabufm">
 				<div class="mui-input-row">
-					<label>姓名</label>
-					<input type="text" class="mui-input-clear" placeholder="请输入姓名">
+					<label>姓名 </label>
+					<input type="text" class="mui-input-clear" name="name" id="name"  maxlength="50"  placeholder="请输入姓名"  >
 				</div>
 				<div class="mui-input-row">
 					<label>生日</label>
-					<input type="text" id="shengri" class="mui-input-clear" placeholder="请输入生日" readonly="readonly" data-options='{"type":"date"}' unselectable="on" onfocus="this.blur();">
+					<input type="text" name="birthday" id="birthday" class="mui-input-clear" placeholder="请输入生日" readonly="readonly" data-options='{"type":"date"}' unselectable="on" onfocus="this.blur();"  >
 				</div>
 				<div class="mui-input-row mui-radio ">
 					<label>男</label>
@@ -62,9 +62,8 @@
 					</li>
 				</ul>
 				<div style="height: auto;width: 100%;margin: 5px 0;text-align: center;">
-					<button type="button" class="mui-btn mui-icon mui-icon-camera">上传照片</button>
+					<button id="upload" type="button" class="mui-btn mui-icon mui-icon-camera">上传照片</button>
 					<h5>(<small>请上传真实的生活照,最多上传3张照片。</small>) </h5>
-
 					<div style="height: auto;width: 100%;padding: 2px 15px;">
 						<div style="height:auto;width: 100%;">
 							<img src="${basePath}/static/images/a2.jpg" style="height:auto;width: 100%;" />
@@ -75,7 +74,6 @@
 							<a href="#" class="mui-icon mui-icon-trash"></a>
 						</div>
 					</div>
-
 				</div>
 			</form>
 		</div>
@@ -88,6 +86,8 @@
 	<script src="${basePath}/static/js/mui.poppicker.js"></script>
 	<script src="${basePath}/static/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${basePath}/static/js/app.js"></script>
+	<script src="${basePath}/static/js/validate/jquery.validate.min.js"></script>
+	<script src="${basePath}/static/js/validate.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 	<script type="template" id="fabuTemplate"> </script>
 	<script type="template" id="loveTemplate">
@@ -179,6 +179,42 @@
 	</script>
 	<script type="text/javascript" charset="utf-8">
 		//http://www.jb51.net/article/99479.htm http://blog.csdn.net/sun2015_07_24/article/details/51445844
+		var appId = "${weiXinDto.appId!}";    // 微信平台唯一标识  
+	    var timestamp = "${weiXinDto.timestamp!}"; // 生成signature所使用的timestamp  
+	    var nonceStr = "${weiXinDto.nonceStr!}"; // 生成signature所使用的nonceStr  
+	    var signature = "${weiXinDto.signature!}";  // 数字签名，生成参照：微信JSSDK接口 - 生成签名  
+	    var serverIds = "" ;
+	    // 后台生成的signature所使用的url应该和它相同  
+	    // alert(location.href.split('#')[0])  
+	    wx.config({
+	        debug: false,  
+	        appId: appId,  
+	        timestamp: timestamp,  
+	        nonceStr: nonceStr,  
+	        signature: signature,  
+	        jsApiList: [
+	              "chooseImage", "previewImage", "uploadImage", "downloadImage"  
+	        ]
+	    });
+	  	$(function(){
+	        $('#upload').click(function(){
+	        	 wx.chooseImage({  
+	                 count: 1,  
+	                 sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+	                 sourceType: ['album', 'camera'],      // 可以指定来源是相册还是相机，默认二者都有  
+	                 success: function (res) {  
+	                     var localIds = res.localIds;      // 返回选定照片的本地ID列表  
+	                     alert(localIds);
+	                    // syncUpload(localIds);             // localId可作为img标签的src属性显示图片  
+	                 }  
+	             });
+	        });
+	    });
+	  /* 	function submitFM(){
+	  		if($('#fabufm').parsley().validate()) {
+	  			alert(1);
+	  		}
+	  	} */
 		//mui初始化
 		function loadlove(){
 			var htmlTem = tmpl("loveTemplate","");
@@ -208,12 +244,60 @@
  		$(function(){
  			mui.init();
  			loadlove();
+ 			
+ 		  $("#save").bind("click", function() {
+ 			  $('#fabufm').submit(); 
+ 		  });
+ 		  $("#fabufm").validate({
+ 		//	 	onfocusout: false,
+ 	            rules : {
+ 	            	name : {
+ 	                    required : true,
+ 	                    minlength : 4,
+ 	                    maxlength : 50,
+ 	                },
+ 	               birthday : {
+ 	                    required : true 
+ 	                } 
+ 	            },
+ 	            messages : {
+ 	            	name : {
+ 	                    required : "请输入您的姓名",
+ 	                    minlength : "姓名长度至少为{0}个字符",
+ 	                    maxlength : "姓名长度至多为{0}个字符"
+ 	                },
+ 	               birthday : {
+ 	                    required : "请输入您的生日" 
+ 	                } 
+ 	            },
+ 	            submitHandler : function(form) { 
+ 	            	
+ 	            },
+ 	            invalidHandler : function(form) {
+ 	            },
+ 	           	errorLabelContainer: $("#fabufm div.error")
+ 	         //   errorPlacement:function(error,element) { 
+ 	          //  	console.log(error)
+ 	                //console.log(element)
+ 	           		//alert(error);
+ 	       	//	},
+ 	           /* 重写错误显示消息方法,以alert方式弹出错误消息 */  
+ 	          /*    showErrors: function(errorMap, errorList) {  
+ 	               var msg = "";  
+ 	               $.each( errorList, function(i,v){  
+ 	                 msg += (v.message+"\n");  
+ 	               });  
+ 	               if(msg!="")  mui.alert(msg,'提示消息', function() { });   
+ 	           },  */  
+ 	           /* 失去焦点时不验证 */   
+ 	          
+ 	        });
  		});
  	 
  		(function($, doc) {
 			$.init();
-			var result = $('#shengri')[0];
-			var btns = $('#shengri');
+			var result = $('#birthday')[0];
+			var btns = $('#birthday');
 			btns.each(function(i, btn) {
 				btn.addEventListener('tap', function() {
 					var _self = this;
