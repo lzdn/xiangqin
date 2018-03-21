@@ -1,5 +1,5 @@
 <#import "/app/frame.html" as frame />
-<@frame.frame csss=["iconfont.css","mui.picker.min.css","mui.poppicker.css","index.css"] scripts=[]> 
+<@frame.frame csss=["iconfont.css","mui.picker.min.css","mui.poppicker.css","index.css","parsley/parsley.css"] scripts=[]> 
 <div class="mui-content">
 	<div id="love" class="mui-control-content  mui-active"></div>
 	<div id="fabu" class="mui-control-content">
@@ -8,38 +8,74 @@
 			<h5>请填写您的个人信息，点击右上角保存：</h5>
 			<form class="mui-input-group" id="fabufm">
 				<div class="mui-input-row">
-					<label>姓名 </label>
-					<input type="text" class="mui-input-clear" name="name" id="name"  maxlength="50"  placeholder="请输入姓名"  >
+					<label>姓名 <font color="red">*</font></label>
+					<input type="text" class="mui-input-clear" name="name" id="name" placeholder="请输入姓名"  
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入姓名"
+					data-parsley-maxlength="50"
+					data-parsley-maxlength-message="姓名不能超过50字"
+					data-parsley-minlength="2"
+					data-parsley-minlength-message="姓名最少2字"
+					>
 				</div>
 				<div class="mui-input-row">
-					<label>生日</label>
-					<input type="text" name="birthday" id="birthday" class="mui-input-clear" placeholder="请输入生日" readonly="readonly" data-options='{"type":"date"}' unselectable="on" onfocus="this.blur();"  >
+					<label>生日<font color="red">*</font></label>
+					<input type="text" name="birthday" id="birthday" placeholder="请输入生日" readonly="readonly" data-options='{"type":"date"}' unselectable="on" onfocus="this.blur();"  
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入生日"
+					>
 				</div>
 				<div class="mui-input-row mui-radio ">
-					<label>男</label>
-					<input name="radio1" type="radio">
+					<label>男<font color="red">*</font></label>
+					<input name="radio1" type="radio"
+					data-parsley-required="true" 
+					data-parsley-required-message="请选择性别">
 				</div>
 				<div class="mui-input-row mui-radio">
-					<label>女</label>
-					<input name="radio1" type="radio" checked>
+					<label>女<font color="red">*</font></label>
+					<input name="radio1" type="radio" checked
+					data-parsley-required="true" 
+					data-parsley-required-message="请选择性别">
 				</div>
 				<div class="mui-input-row">
-					<label>住址</label>
-					<input type="text" id="address" class="mui-input-clear" placeholder="请输入住址" readonly="readonly"  unselectable="on" onfocus="this.blur();">
+					<label>住址<font color="red">*</font></label>
+					<input type="text" id="address" placeholder="请输入住址" readonly="readonly"  unselectable="on" onfocus="this.blur();"
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入住址"
+					data-parsley-id=""
+					>
 				</div>
 				<div class="mui-input-row">
-					<label>手机</label>
-					<input type="text" class="mui-input-clear" placeholder="请输入手机">
+					<label>手机<font color="red">*</font></label>
+					<input type="text" class="mui-input-clear" placeholder="请输入手机" 
+					maxlength="16"
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入手机"
+					data-parsley-pattern="^1[0-9]{10,10}$" 
+					data-parsley-trigger="change"
+					>
 				</div>
 				<div class="mui-input-row">
 					<label>微信号</label>
-					<input type="text" class="mui-input-clear" placeholder="微信号">
+					<input type="text" class="mui-input-clear" placeholder="微信号" 
+					data-parsley-maxlength="25"
+					data-parsley-maxlength-message="微信号不能超过25字">
 				</div>
-				<div class="mui-input-row">
-					<textarea class="mui-input-clear" placeholder="签名..."></textarea>
+				<div class="mui-input-row" style="margin: 10px 5px;">
+					<textarea class="mui-input-clear" placeholder="签名..."
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入签名"
+					data-parsley-maxlength="100"
+					data-parsley-maxlength-message="签名不能超过100字"
+					></textarea>
 				</div>
-				<div class="mui-input-row">
-					<textarea class="mui-input-clear" placeholder="个人简介..."></textarea>
+				<div class="mui-input-row" style="margin: 10px 5px;">
+					<textarea class="mui-input-clear" placeholder="个人简介..." 
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入个人简介"
+					data-parsley-maxlength="500"
+					data-parsley-maxlength-message="个人简介不能超过500字"
+					></textarea>
 				</div>
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
@@ -49,7 +85,7 @@
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
-						出生日期是否保密
+						生日日期是否保密
 						<div class="mui-switch mui-active mui-switch-mini">
 							<div class="mui-switch-handle"></div>
 						</div>
@@ -69,10 +105,6 @@
 							<img src="${basePath}/static/images/a2.jpg" style="height:auto;width: 100%;" />
 							<a href="#" class="mui-icon mui-icon-trash"></a>
 						</div>
-						<div style="height:auto;width: 100%;">
-							<img src="${basePath}/static/images/a1.jpg" style="height:auto;width: 100%;" />
-							<a href="#" class="mui-icon mui-icon-trash"></a>
-						</div>
 					</div>
 				</div>
 			</form>
@@ -86,8 +118,11 @@
 	<script src="${basePath}/static/js/mui.poppicker.js"></script>
 	<script src="${basePath}/static/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${basePath}/static/js/app.js"></script>
-	<script src="${basePath}/static/js/validate/jquery.validate.min.js"></script>
-	<script src="${basePath}/static/js/validate.js"></script>
+	<!-- <script src="${basePath}/static/js/validate/jquery.validate.min.js"></script>
+	<script src="${basePath}/static/js/validate.js"></script> -->
+	<!-- Parsley -->
+	<script src="${basePath}/static/js/parsley.min.js"></script>
+	
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 	<script type="template" id="fabuTemplate"> </script>
 	<script type="template" id="loveTemplate">
@@ -199,7 +234,7 @@
 	  	$(function(){
 	        $('#upload').click(function(){
 	        	 wx.chooseImage({  
-	                 count: 1,  
+	                 count: 3,  //最多9张照片
 	                 sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
 	                 sourceType: ['album', 'camera'],      // 可以指定来源是相册还是相机，默认二者都有  
 	                 success: function (res) {  
@@ -210,11 +245,6 @@
 	             });
 	        });
 	    });
-	  /* 	function submitFM(){
-	  		if($('#fabufm').parsley().validate()) {
-	  			alert(1);
-	  		}
-	  	} */
 		//mui初始化
 		function loadlove(){
 			var htmlTem = tmpl("loveTemplate","");
@@ -241,57 +271,24 @@
 			$("#fabu").html(header);
 			$("#fabu").append(htmlTem);
  		}
+ 		function showCityError(){
+ 			var id = $('#address').attr('data-parsley-id');
+ 	 		if(id!="") $('#parsley-id-'+id).remove();
+ 	 	}
+ 		function showBirthdayError(){
+ 			var id = $('#birthday').attr('data-parsley-id');
+ 	 		if(id!="") $('#parsley-id-'+id).remove();
+ 	 	}
  		$(function(){
  			mui.init();
  			loadlove();
  			
  		  $("#save").bind("click", function() {
- 			  $('#fabufm').submit(); 
+ 			 if($('#fabufm').parsley().validate()) {
+ 	  			alert(1);
+ 	  		  }
  		  });
- 		  $("#fabufm").validate({
- 		//	 	onfocusout: false,
- 	            rules : {
- 	            	name : {
- 	                    required : true,
- 	                    minlength : 4,
- 	                    maxlength : 50,
- 	                },
- 	               birthday : {
- 	                    required : true 
- 	                } 
- 	            },
- 	            messages : {
- 	            	name : {
- 	                    required : "请输入您的姓名",
- 	                    minlength : "姓名长度至少为{0}个字符",
- 	                    maxlength : "姓名长度至多为{0}个字符"
- 	                },
- 	               birthday : {
- 	                    required : "请输入您的生日" 
- 	                } 
- 	            },
- 	            submitHandler : function(form) { 
- 	            	
- 	            },
- 	            invalidHandler : function(form) {
- 	            },
- 	           	errorLabelContainer: $("#fabufm div.error")
- 	         //   errorPlacement:function(error,element) { 
- 	          //  	console.log(error)
- 	                //console.log(element)
- 	           		//alert(error);
- 	       	//	},
- 	           /* 重写错误显示消息方法,以alert方式弹出错误消息 */  
- 	          /*    showErrors: function(errorMap, errorList) {  
- 	               var msg = "";  
- 	               $.each( errorList, function(i,v){  
- 	                 msg += (v.message+"\n");  
- 	               });  
- 	               if(msg!="")  mui.alert(msg,'提示消息', function() { });   
- 	           },  */  
- 	           /* 失去焦点时不验证 */   
- 	          
- 	        });
+ 		 
  		});
  	 
  		(function($, doc) {
@@ -342,6 +339,7 @@
 							_self.picker = null;
 						});
 					}
+					showBirthdayError();
 
 				}, false);
 			});
@@ -363,9 +361,10 @@
 						cityResult3.value = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
 						//返回 false 可以阻止选择框的关闭
 						//return false;
+						showCityError();
+						
 					});
 				}, false);
-
 			})
 		})(mui, document);
 		mui('.mui-bar-tab').on('tap', 'a', function(e) {
