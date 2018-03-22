@@ -29,6 +29,9 @@ public class Photo extends BaseEntity {
 	@Column(name = "img_url", length = 50, nullable = false)
 	private String imgUrl;
 
+	@Column(name = "state", length = 11, nullable = false)
+	private Integer state;
+
 	public Integer getAccountId() {
 		return accountId;
 	}
@@ -43,6 +46,14 @@ public class Photo extends BaseEntity {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
 }
