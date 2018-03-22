@@ -1,6 +1,8 @@
 package com.xiangqin.service;
 
+import com.xiangqin.domain.dto.WeiXinDto;
+
 public interface WeiXinService {
 
-	String getSignature();
+	WeiXinDto getSignature() throws Exception;
 }
