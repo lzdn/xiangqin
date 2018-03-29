@@ -1,7 +1,11 @@
 package com.xiangqin.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,6 +27,10 @@ public class Photo extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", length = 11, nullable = false)
+	private Integer id;
+
 	@Column(name = "account_id", length = 11, nullable = false)
 	private Integer accountId;
 
@@ -31,6 +39,28 @@ public class Photo extends BaseEntity {
 
 	@Column(name = "state", length = 11, nullable = false)
 	private Integer state;
+
+	@Column(name = "serialno", length = 11, nullable = false)
+	private Integer serialno;
+
+	@Column(name = "create_time", nullable = false)
+	private Date createTime;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getSerialno() {
+		return serialno;
+	}
+
+	public void setSerialno(Integer serialno) {
+		this.serialno = serialno;
+	}
 
 	public Integer getAccountId() {
 		return accountId;
@@ -54,6 +84,14 @@ public class Photo extends BaseEntity {
 
 	public void setState(Integer state) {
 		this.state = state;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 }

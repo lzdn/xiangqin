@@ -247,4 +247,15 @@ public class Person extends BaseEntity {
 	public void setAccountId(Integer accountId) {
 		this.accountId = accountId;
 	}
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", accountId=" + accountId + ", name=" + name + ", birthday=" + birthday + ", sex="
+				+ sex + ", provinceId=" + provinceId + ", provinceName=" + provinceName + ", cityId=" + cityId
+				+ ", cityName=" + cityName + ", countyId=" + countyId + ", countyName=" + countyName + ", phone="
+				+ phone + ", weixin=" + weixin + ", signature=" + signature + ", introduction=" + introduction
+				+ ", contactWay=" + contactWay + ", birthdayWay=" + birthdayWay + ", oneShowWay=" + oneShowWay
+				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
+	}
+	
 }

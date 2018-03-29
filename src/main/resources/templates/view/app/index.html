@@ -7,6 +7,7 @@
 	<div class="mui-content">
 			<h5>请填写您的个人信息，点击右上角保存：</h5>
 			<form class="mui-input-group" id="fabufm">
+				<input type="hidden" name="id" />
 				<div class="mui-input-row">
 					<label>姓名 <font color="red">*</font></label>
 					<input type="text" class="mui-input-clear" name="name" id="name" placeholder="请输入姓名"  
@@ -27,15 +28,11 @@
 				</div>
 				<div class="mui-input-row mui-radio ">
 					<label>男<font color="red">*</font></label>
-					<input name="radio1" type="radio"
-					data-parsley-required="true" 
-					data-parsley-required-message="请选择性别">
+					<input name="sex" type="radio" data-parsley-required="true"  data-parsley-required-message="请选择性别" checked value="1">
 				</div>
 				<div class="mui-input-row mui-radio">
 					<label>女<font color="red">*</font></label>
-					<input name="radio1" type="radio" checked
-					data-parsley-required="true" 
-					data-parsley-required-message="请选择性别">
+					<input name="sex" type="radio" data-parsley-required="true"  data-parsley-required-message="请选择性别" value="2">
 				</div>
 				<div class="mui-input-row">
 					<label>住址<font color="red">*</font></label>
@@ -44,11 +41,17 @@
 					data-parsley-required-message="请输入住址"
 					data-parsley-id=""
 					>
+					<input type="hidden" name="provinceId" id="provinceId"/>
+					<input type="hidden" name="cityId" id="cityId"/>
+					<input type="hidden" name="countyId" id="countyId"/>
+					
+					<input type="hidden" name="provinceName" id="provinceName"/>
+					<input type="hidden" name="cityName" id="cityName"/>
+					<input type="hidden" name="countyName" id="countyName"/>
 				</div>
 				<div class="mui-input-row">
 					<label>手机<font color="red">*</font></label>
-					<input type="text" class="mui-input-clear" placeholder="请输入手机" 
-					maxlength="16"
+					<input type="text" name="phone" class="mui-input-clear" placeholder="请输入手机"  maxlength="16"
 					data-parsley-required="true" 
 					data-parsley-required-message="请输入手机"
 					data-parsley-pattern="^1[0-9]{10,10}$" 
@@ -57,12 +60,12 @@
 				</div>
 				<div class="mui-input-row">
 					<label>微信号</label>
-					<input type="text" class="mui-input-clear" placeholder="微信号" 
+					<input type="text" name="weixin" class="mui-input-clear" placeholder="微信号" 
 					data-parsley-maxlength="25"
 					data-parsley-maxlength-message="微信号不能超过25字">
 				</div>
 				<div class="mui-input-row" style="margin: 10px 5px;">
-					<textarea class="mui-input-clear" placeholder="签名..."
+					<textarea name="signature" class="mui-input-clear" placeholder="签名..."
 					data-parsley-required="true" 
 					data-parsley-required-message="请输入签名"
 					data-parsley-maxlength="100"
@@ -70,7 +73,7 @@
 					></textarea>
 				</div>
 				<div class="mui-input-row" style="margin: 10px 5px;">
-					<textarea class="mui-input-clear" placeholder="个人简介..." 
+					<textarea name="introduction" class="mui-input-clear" placeholder="个人简介..." 
 					data-parsley-required="true" 
 					data-parsley-required-message="请输入个人简介"
 					data-parsley-maxlength="500"
@@ -80,31 +83,36 @@
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
 						联系方式是否保密
-						<div class="mui-switch mui-active mui-switch-mini">
+						<div class="mui-switch mui-active mui-switch-mini" for="contactWay">
 							<div class="mui-switch-handle"></div>
 						</div>
+						<input type="hidden" name="contactWay" id="contactWay" value="1"/>
 					</li>
 					<li class="mui-table-view-cell">
 						生日日期是否保密
-						<div class="mui-switch mui-active mui-switch-mini">
+						<div class="mui-switch mui-active mui-switch-mini" for="birthdayWay">
 							<div class="mui-switch-handle"></div>
 						</div>
+						<input type="hidden" name="birthdayWay" id="birthdayWay" value="1"/>
 					</li>
 					<li class="mui-table-view-cell">
 						仅展示第一张照片
-						<div class="mui-switch mui-active mui-switch-mini">
+						<div class="mui-switch mui-active mui-switch-mini" for="oneShowWay">
 							<div class="mui-switch-handle"></div>
 						</div>
+						<input type="hidden" name="oneShowWay" id="oneShowWay" value="1"/>
 					</li>
 				</ul>
 				<div style="height: auto;width: 100%;margin: 5px 0;text-align: center;">
 					<button id="upload" type="button" class="mui-btn mui-icon mui-icon-camera">上传照片</button>
 					<h5>(<small>请上传真实的生活照,最多上传3张照片。</small>) </h5>
-					<div style="height: auto;width: 100%;padding: 2px 15px;">
-						<div style="height:auto;width: 100%;">
+					<div style="height: auto;width: 100%;padding: 2px 15px;" id="imagesContainer">
+					<!-- <div style="height:auto;width: 100%;">
 							<img src="${basePath}/static/images/a2.jpg" style="height:auto;width: 100%;" />
 							<a href="#" class="mui-icon mui-icon-trash"></a>
-						</div>
+							<input type="hidden" name="imgId"/>
+							<input type="hidden" name="imgUrl"/>
+						</div> -->
 					</div>
 				</div>
 			</form>
@@ -203,7 +211,7 @@
 			<div class="mui-card-header mui-card-media" style="height:80vw;background-image:url(${basePath}/static/images/a1.jpg)"></div>
 			<div class="mui-card-content">
 				<div class="mui-card-content-inner">
-					<p style="color: #333;">提示：填写真实详细的个人信息，能帮助你征婚。</p>
+					<p style="color: #333;">提示：填写真实详细的个人信息，能帮助到你征婚。</p>
 				</div>
 			</div>
 			<div class="mui-card-footer">
@@ -285,7 +293,24 @@
  			
  		  $("#save").bind("click", function() {
  			 if($('#fabufm').parsley().validate()) {
- 	  			alert(1);
+ 				$.ajax({
+					cache: true,
+					type: "POST",
+					url: "${basePath}/info/save",
+					data: $('#fabufm').serialize(),
+					async: false,
+					error: function(request) {
+						mui.toast('由于网络等原因保存失败！');
+					},
+					success: function(data) {
+						if(data.code==1) {
+							mui.toast(data.message);
+						//	window.location.href="";
+						} else {
+							mui.toast(data.message);
+						}
+					}
+				});
  	  		  }
  		  });
  		 
@@ -361,8 +386,8 @@
 						cityResult3.value = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
 						//返回 false 可以阻止选择框的关闭
 						//return false;
+						setAddressValue(items);
 						showCityError();
-						
 					});
 				}, false);
 			})
@@ -378,6 +403,36 @@
 				//loadfinish();
 			} 
 		});
+		mui('.mui-content .mui-switch').each(function() { //循环所有toggle
+			this.addEventListener('toggle', function(event) {
+				//event.detail.isActive 可直接获取当前状态
+				var value = (event.detail.isActive ? '1' : '0');
+				var id = $(this).attr('for');
+				$('#'+id).val(value);
+			});
+		});
+		
+		function setAddressValue(items){
+			var _getParam = function(obj, param) {
+				return obj[param] || '';
+			};
+			$('#provinceId').val(_getParam(items[0], 'value'));
+			$('#provinceName').val(_getParam(items[0], 'text'));
+			$('#cityId').val(_getParam(items[1], 'value'));
+			$('#cityName').val(_getParam(items[1], 'text'));
+			$('#countyId').val(_getParam(items[2], 'value'));
+			$('#countyName').val(_getParam(items[2], 'text'));
+		}
+		function insertImg(url){
+			//imagesContainer
+			if(url=="")url="${basePath}/static/images/a2.jpg";
+			var html='<div style="height:auto;width: 100%;"><img src="'+url+'" style="height:auto;width: 100%;" /><a href="javascript:void(0)" class="mui-icon mui-icon-trash" onclick="removeImg(this,0)"></a><input type="hidden" name="imgId"/><input type="hidden" name="imgUrl" value="'+url+'"/></div>';
+			$('#imagesContainer').append(html);
+		}
+		function removeImg(obj,id){
+			mui.toast("删除成功");
+			$(obj).parent().remove();
+		}
 	</script>
 </@frame.script>
  
