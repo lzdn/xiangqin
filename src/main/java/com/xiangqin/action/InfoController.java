@@ -59,7 +59,7 @@ public class InfoController extends BaseController {
 			body.setId(id);
 			result.setBody(body);
 		} catch (Exception e) {
-			result = new Result(1, "保存失败!");
+			result = new Result(0, "保存失败!");
 			logger.error("保存个人信息：" + e);
 		}
 		writeJSON(response, result);

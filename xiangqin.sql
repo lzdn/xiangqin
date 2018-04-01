@@ -1,3 +1,17 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : 本地
+Source Server Version : 50716
+Source Host           : localhost:3306
+Source Database       : xiangqin
+
+Target Server Type    : MYSQL
+Target Server Version : 50716
+File Encoding         : 65001
+
+Date: 2018-04-02 00:20:28
+*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -7,7 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `t_account`;
 CREATE TABLE `t_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `open_id` int(11) DEFAULT NULL COMMENT '微信open_id',
+  `open_id` varchar(255) NOT NULL COMMENT '微信open_id',
   `img_url` varchar(255) DEFAULT NULL COMMENT '图片',
   `charm` varchar(255) DEFAULT NULL COMMENT '魅力',
   `received_count` int(11) DEFAULT NULL COMMENT '收到的信件数',
@@ -48,11 +62,14 @@ CREATE TABLE `t_feedback` (
 DROP TABLE IF EXISTS `t_letter`;
 CREATE TABLE `t_letter` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `account_id` int(11) NOT NULL,
+  `from_id` int(11) NOT NULL,
+  `to_id` int(11) NOT NULL DEFAULT '0',
   `content` varchar(250) NOT NULL,
   `read_state` int(2) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `update_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_person
@@ -79,8 +96,10 @@ CREATE TABLE `t_person` (
   `one_show_way` int(11) DEFAULT NULL COMMENT '仅展示一张图片',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '修改时间',
+  `age` int(11) NOT NULL,
+  `height` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='个人信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='个人信息表';
 
 -- ----------------------------
 -- Table structure for t_photo
@@ -95,8 +114,3 @@ CREATE TABLE `t_photo` (
   `serialno` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-ALTER TABLE `t_person`
-ADD COLUMN `age`  int(11) NOT NULL AFTER `update_time`,
-ADD COLUMN `height`  int(11) NOT NULL AFTER `age`;
