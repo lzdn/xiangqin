@@ -95,3 +95,8 @@ CREATE TABLE `t_photo` (
   `serialno` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `t_person`
+ADD COLUMN `age`  int(11) NOT NULL AFTER `update_time`,
+ADD COLUMN `height`  int(11) NOT NULL AFTER `age`;

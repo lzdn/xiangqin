@@ -1,5 +1,7 @@
 package com.xiangqin.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,15 @@ public class PersonServiceImpl implements PersonService {
 	public Integer addPerson(Person p) {
 		personRepository.save(p);
 		return p.getId();
+	}
+
+	@Override
+	public List<Person> list() {
+		return personRepository.findAll();
+	}
+
+	@Override
+	public Person findPerson(Integer id) {
+		return personRepository.findOne(id);
 	}
 }

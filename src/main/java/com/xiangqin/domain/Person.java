@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.xiangqin.domain.base.BaseEntity;
 
@@ -39,6 +40,12 @@ public class Person extends BaseEntity {
 
 	@Column(name = "birthday", nullable = false)
 	private Date birthday;
+
+	@Column(name = "age", length = 11, nullable = false)
+	private Integer age;
+
+	@Column(name = "height", length = 11, nullable = false)
+	private Integer height;
 
 	@Column(name = "sex", nullable = false)
 	private Integer sex;
@@ -84,9 +91,19 @@ public class Person extends BaseEntity {
 
 	@Column(name = "create_time", nullable = false)
 	private Date createTime;
-	
+
 	@Column(name = "update_time", nullable = false)
 	private Date updateTime;
+
+	@Transient
+	private String coverUrl;
+	
+	@Transient
+	private String address;
+	
+	@Transient
+	private String sexName;
+	
 
 	public Integer getId() {
 		return id;
@@ -110,6 +127,22 @@ public class Person extends BaseEntity {
 
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
 	}
 
 	public Integer getSex() {
@@ -248,6 +281,31 @@ public class Person extends BaseEntity {
 		this.accountId = accountId;
 	}
 
+	public String getCoverUrl() {
+		return coverUrl;
+	}
+
+	public void setCoverUrl(String coverUrl) {
+		this.coverUrl = coverUrl;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getSexName() {
+		return sexName;
+	}
+
+	public void setSexName(String sexName) {
+		this.sexName = sexName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Person [id=" + id + ", accountId=" + accountId + ", name=" + name + ", birthday=" + birthday + ", sex="
@@ -257,5 +315,5 @@ public class Person extends BaseEntity {
 				+ ", contactWay=" + contactWay + ", birthdayWay=" + birthdayWay + ", oneShowWay=" + oneShowWay
 				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
 	}
-	
+
 }

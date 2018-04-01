@@ -26,6 +26,10 @@
 					data-parsley-required-message="请输入生日"
 					>
 				</div>
+				<div class="mui-input-row">
+					<label>身高(cm)<font color="red">*</font></label>
+					<input type="number" name="height" id="height" placeholder="请输入身高" data-parsley-required="true"  data-parsley-required-message="请输入身高" >
+				</div>
 				<div class="mui-input-row mui-radio ">
 					<label>男<font color="red">*</font></label>
 					<input name="sex" type="radio" data-parsley-required="true"  data-parsley-required-message="请选择性别" checked value="1">
@@ -134,22 +138,27 @@
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 	<script type="template" id="fabuTemplate"> </script>
 	<script type="template" id="loveTemplate">
+	<%
+	for(var i = 0;i<list.length;i++){
+		var person = list[i];
+	%>
 	<div class="mui-content">
 		<div class="mui-card">
-			<div class="mui-card-header mui-card-media" style="height:80vw;background-image:url(${basePath}/static/images/a1.jpg)"></div>
+			<div class="mui-card-header mui-card-media" style="height:80vw;background-image:url(<%=person.coverUrl%>)"></div>
 			<div class="mui-card-content">
 				<div class="mui-card-content-inner">
-					<p>姓名：晓霞&nbsp;&nbsp;年龄：18岁</p>
-					<p style="color: #333;">签名：爱一个人好难...</p>
+					<p>姓名：<%=person.name%>&nbsp;&nbsp;年龄：<%=person.age%>岁</p>
+					<p style="color: #333;">签名：<%=person.signature%></p>
 				</div>
 			</div>
 			<div class="mui-card-footer">
 				<a class="mui-card-link">
 					<!--<i class="mui-icon mui-icon-eye"></i>-->关注(12)</a>
-				<a class="mui-card-link" href="person.html">查看</a>
+				<a class="mui-card-link" href="${basePath}/info/person/<%=person.id%>">查看</a>
 			</div>
 		</div>
 	</div>
+	<%}%>
 	</script>
 	<script type="template" id="mineTemplate">
 		<div class="mui-content">
@@ -208,7 +217,7 @@
 	<script type="template" id="finishTemplate">
 		<div class="mui-content">
 			<div class="mui-card">
-			<div class="mui-card-header mui-card-media" style="height:80vw;background-image:url(${basePath}/static/images/a1.jpg)"></div>
+			<div class="mui-card-header mui-card-media" style="height:60vw;background-image:url(${basePath}/static/images/a1.jpg)"></div>
 			<div class="mui-card-content">
 				<div class="mui-card-content-inner">
 					<p style="color: #333;">提示：填写真实详细的个人信息，能帮助到你征婚。</p>
@@ -253,12 +262,28 @@
 	             });
 	        });
 	    });
+	  	
+	  	
 		//mui初始化
 		function loadlove(){
-			var htmlTem = tmpl("loveTemplate","");
 			var header ='<header class="mui-bar mui-bar-nav"> <h1 id="title" class="mui-title">一见钟情</h1></header>';
 			$("#love").html(header);
-			$("#love").append(htmlTem);
+			$.ajax({
+				cache: false,
+				type: "GET",
+				url: "${basePath}/info/list",
+				async: false,
+				error: function(request) {
+					mui.toast('由于网络等原因请求失败！');
+				},
+				success: function(data) {
+					if(data.success) {
+						var htmlTem = tmpl("loveTemplate",data);
+						$("#love").append(htmlTem);
+					}  
+				}
+			});
+		 
 		}
  		function loadmine(){
  			var htmlTem = tmpl("mineTemplate","");
@@ -338,7 +363,15 @@
 						 * 示例为了简洁，将 options 放在了按钮的 dom 上
 						 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
 						 */
-						_self.picker = new $.DtPicker(options);
+						 
+						
+						 
+						_self.picker = //new $.DtPicker(options);
+							 new mui.DtPicker({
+								    type: "date",//设置日历初始视图模式 
+								    beginDate: new Date(1950, 01, 01),//设置开始日期 
+								    endDate: new Date(),//设置结束日期 
+								});
 						_self.picker.show(function(rs) {
 							/*
 							 * rs.value 拼合后的 value
