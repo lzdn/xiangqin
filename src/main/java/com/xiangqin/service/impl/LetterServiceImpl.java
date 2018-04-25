@@ -22,8 +22,13 @@ public class LetterServiceImpl implements LetterService {
 	}
 
 	@Override
-	public List<Letter> list(Integer fromId) {
-		return letterRepository.list(fromId);
+	public List<Letter> mList(Integer fromId) {
+		return letterRepository.mList(fromId);
+	}
+
+	@Override
+	public List<Letter> sList(Integer toId) {
+		return letterRepository.sList(toId);
 	}
 
 }
